@@ -1,0 +1,27 @@
+.carousel-item{
+    max-height: calc(100vh - 56px) !important;
+}
+.carousel-caption{
+    bottom: 35% !important;
+    background: rgba(0,0,0,0.3);
+    padding: 70px 30px !important;
+    border-radius: 20px;
+}
+.carousel-caption h1{
+    font-size: 3em;
+    background: rgba(0,0,0,.2);
+    margin-bottom: 30px;
+    padding: 20px;
+    border-radius: 20px;
+}
+.sub-card{
+    text-transform: uppercase;
+    color: #ff5d5d;
+    font-size: 14px !important;
+}
+.card{
+    display: flex;
+}
+.card-body{
+    
+}

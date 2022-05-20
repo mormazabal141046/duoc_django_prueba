@@ -1,0 +1,43 @@
+{% extends "main-template.html" %}{% load static %}
+{% block title %} Usuario {% endblock %}
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+    <img src="https://img.icons8.com/ios/500/pets--v1.png" alt="" class="d-inline-block align-text-top mt-5" style="width:100px">
+    <h2 class="mt-2">Nuevo Usuario!</h2>
+    <h5>Registrate en nuestra web para conocer y recibir novedosas promociones y productos. Completa el siguiente formulario de registro.</h5>
+    <form class="col-5 mt-4" id="frm-contacto" method="POST" action="/contacto/formulario">{% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Nombres</label>
+            <input name="inp-nombre" type="text" class="form-control" id="inp-nombre" value="">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Apellidos</label>
+            <input name="inp-apellidos" type="text" class="form-control" id="inp-apellidos" value="">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label">Fecha Nacimiento</label>
+          <input name="inp-fecnac" type="date" class="form-control" id="inp-fecnac" aria-describedby="emailHelp" value="">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Email</label>
+          <input name="inp-email" type="email" class="form-control" id="inp-email" value="">
+        </div>
+        <div class="mb-3">
+          <label for="exampleInputPassword1" class="form-label">Teléfono</label>
+          <input name="inp-tel" type="phone" class="form-control" id="inp-tel" value="">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Categoria</label>
+            <select class="form-select" id="inp-categoria" name="inp-categoria" aria-label="Default select example">
+                <option selected value="">Seleccione</option>
+                <option value="Gatos">Gatos</option>
+                <option value="Perros">Perros</option>
+                <option value="Ambos">Ambos</option>
+            </select>
+        </div>
+        <button type="button" class="btn btn-primary" onclick="enviar_usuario()">Registrar</button>
+      </form>
+      <ul class="errors-list-users d-none mt-4" style="color: #e31e4c;"></ul>
+</div>
+<script src="{% static 'js/usuario.js' %}"></script>
+{% endblock %}

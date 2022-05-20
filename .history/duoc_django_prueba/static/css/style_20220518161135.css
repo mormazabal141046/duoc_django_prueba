@@ -1,0 +1,8 @@
+.carousel-item{
+    max-height: calc(100vh - 56px) !important;
+}
+.carousel-caption{
+    bottom: 45% !important;
+    background: rgba(0,0,0,0.3);
+    padding: 70px 30px !important;
+}
