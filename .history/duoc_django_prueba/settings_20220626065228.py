@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'duoc_django_prueba.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'django_mormazabal',
+        'NAME': 'postgres',
         'USER': 'postgres',
-        'PASSWORD': 'system',
+        'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': '5432',
     }
