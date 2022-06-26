@@ -1,22 +1,21 @@
 
 
 function print_errors(errors){
-    console.log("Errors", typeof(errors))
     let lista = document.querySelector(".errors-list");
     lista.innerHTML = "";
-    let show = false;
+    let send = true;
     Object.entries(errors).forEach((item,v) => {
         if(item[1] != ""){
-            show = true;
+            send = false;
             lista.innerHTML += `<li>${item[1]}</li>`
         }
     })
 
-    if(show){
+    if(!send){
         lista.classList.remove('d-none');
         lista.classList.add('d-block');
     }
-
+    return send
 }
 
 function validar_inputs(asunto,nombre,apellidos,  email, telefono, mensaje){
@@ -28,7 +27,7 @@ function validar_inputs(asunto,nombre,apellidos,  email, telefono, mensaje){
         telefono:"",
         mensaje:""
     };
-   
+   let send = true;
     if(asunto == ""){
         lista_errores.asunto = "Debe agregar un Asunto";
     }else{
@@ -60,17 +59,22 @@ function validar_inputs(asunto,nombre,apellidos,  email, telefono, mensaje){
         lista_errores.mensaje = "";
     }
 
-    print_errors(lista_errores)
+    send = print_errors(lista_errores)
+    return send
 }
 
 function enviar_contacto(){
     let asunto = document.querySelector("#inp-asunto").value;
-    let nombre = document.querySelector("#inp-nombre").value;
+    let nombre = document.querySelector("#inp-nombres").value;
     let apellidos = document.querySelector("#inp-apellidos").value;
     let email = document.querySelector("#inp-email").value;
     let telefono = document.querySelector("#inp-tel").value;
-    let copia = document.querySelector("#inp-copia").value;
     let mensaje = document.querySelector("#inp-mensaje").value;
 
-    validar_inputs(asunto,nombre,apellidos, email, telefono, mensaje);
+    let send = validar_inputs(asunto,nombre,apellidos, email, telefono, mensaje);
+    if(send){
+        let frm_contacto =  document.querySelector('#frm-contacto')
+        frm_contacto.submit();
+    }
+
 }

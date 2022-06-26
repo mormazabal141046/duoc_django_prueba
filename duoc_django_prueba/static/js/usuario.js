@@ -2,30 +2,39 @@
 function print_errors(errors){
     let lista = document.querySelector(".errors-list-users");
     lista.innerHTML = "";
-    let show = false;
+    let send = true;
     Object.entries(errors).forEach((item,v) => {
         if(item[1] != ""){
-            show = true;
+            send = false;
             lista.innerHTML += `<li>${item[1]}</li>`
         }
     })
-    if(show){
+    if(!send){
         lista.classList.remove('d-none');
         lista.classList.add('d-block');
     }
+
+    return send;
 }
 
-function validar_inputs(nombre,apellidos,fec_nac, email, telefono, categoria){
+function validar_inputs(rut, nombre,apellidos,fec_nac, email, telefono, membresia){
     let lista_errores = {
+        rut:"",
         nombre:"",
         apellidos:"",
         fec_nac:"",
         email:"",
         telefono:"",
-        categoria:""
+        membresia:""
     };
+    let send = true;
+    if(rut == ""){
+        lista_errores.rut = "Debe agregar un RUT";
+    }else{
+        lista_errores.rut = "";
+    }
     if(nombre == ""){
-        lista_errores.nombre = "Debe agregar un Nombre";
+        lista_errores.nombre = "Debe agregar sus Nombres";
     }else{
         lista_errores.nombre = "";
     }
@@ -35,7 +44,7 @@ function validar_inputs(nombre,apellidos,fec_nac, email, telefono, categoria){
         lista_errores.apellidos = "";
     }
     if(fec_nac == ""){
-        lista_errores.fec_nac = "Debe agregar un Fecha Nacimiento";
+        lista_errores.fec_nac = "Debe Seleccionar su Fecha Nacimiento";
     }else{
         lista_errores.fec_nac = "";
     }
@@ -49,22 +58,28 @@ function validar_inputs(nombre,apellidos,fec_nac, email, telefono, categoria){
     }else{
         lista_errores.telefono = "";
     }
-    if(categoria == ""){
-        lista_errores.categoria = "Debe agregar un Categoria";
+    if(membresia == ""){
+        lista_errores.membresia = "Debe Seleccionar una Membresia";
     }else{
-        lista_errores.categoria = "";
+        lista_errores.membresia = "";
     }
 
-    print_errors(lista_errores)
+    send = print_errors(lista_errores)
+    return send
 }
 
 function enviar_usuario(){
-    let fec_nac = document.querySelector("#inp-fecnac").value;
-    let nombre = document.querySelector("#inp-nombre").value;
+    let rut = document.querySelector("#inp-run").value;
+    let nombre = document.querySelector("#inp-nombres").value;
     let apellidos = document.querySelector("#inp-apellidos").value;
+    let fec_nac = document.querySelector("#inp-fecnac").value;
     let email = document.querySelector("#inp-email").value;
     let telefono = document.querySelector("#inp-tel").value;
-    let categoria = document.querySelector("#inp-categoria").value;
+    let membresia = document.querySelector("#inp-membresia").value;
 
-    validar_inputs(nombre,apellidos,fec_nac, email, telefono, categoria);
+    let send = validar_inputs(rut, nombre,apellidos,fec_nac, email, telefono, membresia);
+    if(send){
+        let frm_registro =  document.querySelector('#frm-registro-usuario')
+        frm_registro.submit();
+    }
 }

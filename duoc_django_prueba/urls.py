@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from duoc_django_prueba.views.home import index
 from duoc_django_prueba.views.product import index_product
-from duoc_django_prueba.views.contact import index_contact
-from duoc_django_prueba.views.user import index_user
+from duoc_django_prueba.views.contact import index_contact, contact_register
+from duoc_django_prueba.views.user import index_user, user_register
+from duoc_django_prueba.views.mant_users import index_mant_users
+from duoc_django_prueba.views.mant_cont import index_mant_contact
 
 
 
@@ -27,8 +29,11 @@ urlpatterns = [
     path('', index),
     path('productos/', index_product),
     path('contacto/', index_contact),
-    # path('contacto/formulario', formulario_contacto),
-    path('usuario/', index_user)
+    path('contacto/formulario', contact_register),
+    path('usuario/', index_user),
+    path('usuario/registro', user_register),
+    path('mantenedor-usuarios/', index_mant_users),
+    path('mantenedor-contacto/', index_mant_contact)
 
 
 ]

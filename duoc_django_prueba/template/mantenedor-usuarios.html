@@ -1,0 +1,120 @@
+{% extends "main-template.html" %}{% load static %}
+{% block title %} Mantenedor Usuarios {% endblock %}
+{% block content %}
+<div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+    <!-- <img src="https://img.icons8.com/ios/500/pets--v1.png" alt="" class="d-inline-block align-text-top mt-5" style="width:100px"> -->
+    <h2 class="mt-2 d-flex justify-content-center align-content-center align-items-center"><i class="las la-users-cog me-4" style="font-size: 3.5em;"></i> Listado de Usuarios</h2>
+    <h5>Aqui encontraás a todos los usuarios registrados en <b>Quilterry's Store</b>.</h5>
+    <div class="container mt-4">
+
+      <table class="table table-striped table-hover table-bordered">
+        <thead>
+        <tr>
+          <th class="align-middle text-center" scope="col">#</th>
+          <th class="align-middle text-center" scope="col">RUN</th>
+          <th class="align-middle text-center" scope="col">Nombres</th>
+          <th class="align-middle text-center" scope="col">Apellidos</th>
+          <th class="align-middle text-center" scope="col">Fecha Nacimiento</th>
+          <th class="align-middle text-center" scope="col">Email</th>
+          <th class="align-middle text-center" scope="col">Teléfono</th>
+          <th class="align-middle text-center" scope="col">Membresía</th>
+          <th class="align-middle text-center" scope="col">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for u in usuarios %}
+
+          <tr>
+            <th class="align-middle text-center" scope="row">{{u.codigo}}</th>
+            <td class="align-middle text-center">{{u.run}}</td>
+            <td class="align-middle text-center">{{u.nombres}}</td>
+            <td class="align-middle text-center">{{u.apellidos}}</td>
+            <td class="align-middle text-center">{{u.fecha_nac}}</td>
+            <td class="align-middle text-center">{{u.email}}</td>
+            <td class="align-middle text-center">{{u.telefono}}</td>
+            <td class="align-middle text-center">{{u.membresia}}</td>
+            <td class="actions-buttons align-middle text-center">
+              <a type="button" class="btn btn-outline-warning"  data-bs-toggle="modal" title="Editar Usuario {{u.codigo}}"
+              data-bs-target="#mdl-up{{u.codigo}}"><i class="las la-pen"></i></a>
+              <div id="mdl-up{{u.codigo}}" class="modal" tabindex="-1" >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header text-center">
+                      <h5 class="modal-title w-100">Editar Usuario</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">                            
+                      </button>
+                    </div>
+                    <div class="modal-body d-flex justify-content-center align-items-center align-content-center">
+                      <form class="col-11 mt-4" id="frm-contacto" method="POST" action="">{% csrf_token %}
+                        <input name="inp-codigo" value="{{u.codigo}}" type="hidden" />
+                        <input name="type-method" value="UPDATE" type="hidden" />
+                        <div class="mb-3 d-flex justify-content-center align-items-start align-content-center flex-column">
+                            <label for="exampleInputPassword1" class="form-label">RUN</label>
+                            <input name="inp-run" type="text" disabled readonly class="form-control" id="inp-run" value="{{u.run}}">
+                        </div>
+                        <div class="mb-3 d-flex justify-content-center align-items-start align-content-center flex-column">
+                          <label for="exampleInputPassword1" class="form-label">Nombres</label>
+                            <input name="inp-nombres" type="text" class="form-control" id="inp-nombres" value="{{u.nombres}}">
+                        </div>
+                        <div class="mb-3 d-flex justify-content-center align-items-start align-content-center flex-column">
+                          <label for="exampleInputPassword1" class="form-label">Apellidos</label>
+                            <input name="inp-apellidos" type="text" class="form-control" id="inp-apellidos" value="{{u.apellidos}}">
+                        </div>
+                        <div class="mb-3 d-flex justify-content-center align-items-start align-content-center flex-column">
+                          <label for="exampleInputEmail1" class="form-label">Fecha Nacimiento</label>
+                          <input name="inp-fecnac" type="text" disabled readonly class="form-control" id="inp-fecnac" aria-describedby="emailHelp" value="{{u.fecha_nac}}">
+                        </div>
+                        <div class="mb-3 d-flex justify-content-center align-items-start align-content-center flex-column">
+                          <label for="exampleInputPassword1" class="form-label">Email</label>
+                          <input name="inp-email" type="email" class="form-control" id="inp-email" value="{{u.email}}">
+                        </div>
+                        <div class="mb-3 d-flex justify-content-center align-items-start align-content-center flex-column">
+                          <label for="exampleInputPassword1" class="form-label">Teléfono</label>
+                          <input name="inp-tel" type="phone" class="form-control" id="inp-tel" value="{{u.telefono}}">
+                        </div>
+                        <div class="mb-3 d-flex justify-content-center align-items-start align-content-center flex-column">
+                          <label for="exampleInputPassword1" class="form-label">Membresía</label>
+                          <input name="inp-membresia" type="text" disabled readonly class="form-control" id="inp-membresia" aria-describedby="emailHelp" value="{{u.membresia}}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-warning" onclick="enviar_usuario()">Actualizar</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <a type="button" class="btn btn-outline-danger"  data-bs-toggle="modal" title="Eliminar Usuario {{u.codigo}}"
+              data-bs-target="#mdl-{{u.codigo}}"><i class="las la-trash-alt"></i></a>
+              <div id="mdl-{{u.codigo}}" class="modal" tabindex="-1" >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header text-center">
+                      <h5 class="modal-title w-100">Advertencia</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">                            
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Se eliminará el usuario seleccionado <b>"{{u.nombres}} {{u.apellidos}}"</b>. ¿Desea Continuar?.</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
+                      <form method="POST" action="">{% csrf_token %}
+                        <input name="inp-codigo" value="{{u.codigo}}" type="hidden" />
+                        <input name="type-method" value="DELETE" type="hidden" />
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        {% endfor %}      
+      </tbody>
+    </table>
+  </div>
+</div>
+<script src="{% static 'js/usuario.js' %}"></script>
+{% endblock %}

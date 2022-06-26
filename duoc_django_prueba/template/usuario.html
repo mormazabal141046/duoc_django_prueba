@@ -1,14 +1,18 @@
 {% extends "main-template.html" %}{% load static %}
 {% block title %} Usuario {% endblock %}
 {% block content %}
-<div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+<div class="d-flex flex-column justify-content-center align-content-center align-items-center mb-5">
     <img src="https://img.icons8.com/ios/500/pets--v1.png" alt="" class="d-inline-block align-text-top mt-5" style="width:100px">
     <h2 class="mt-2">Nuevo Usuario!</h2>
     <h5>Registrate en nuestra web para conocer y recibir novedosas promociones y productos. Completa el siguiente formulario de registro.</h5>
-    <form class="col-5 mt-4" id="frm-contacto" method="POST" action="/contacto/formulario">{% csrf_token %}
+    <form class="col-5 mt-4" id="frm-registro-usuario" method="POST" action="/usuario/registro">{% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">RUT</label>
+            <input name="inp-run" type="text" class="form-control" id="inp-run" value="">
+        </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Nombres</label>
-            <input name="inp-nombre" type="text" class="form-control" id="inp-nombre" value="">
+            <input name="inp-nombres" type="text" class="form-control" id="inp-nombres" value="">
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Apellidos</label>
@@ -27,15 +31,16 @@
           <input name="inp-tel" type="phone" class="form-control" id="inp-tel" value="">
         </div>
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Categoria</label>
-            <select class="form-select" id="inp-categoria" name="inp-categoria" aria-label="Default select example">
+            <label for="exampleInputPassword1" class="form-label">Membresia</label>
+            <select class="form-select" id="inp-membresia" name="inp-membresia" aria-label="Default select example">
                 <option selected value="">Seleccione</option>
-                <option value="Gatos">Gatos</option>
-                <option value="Perros">Perros</option>
-                <option value="Ambos">Ambos</option>
+                <option value="Premium">Premium</option>
+                <option value="Standard">Standard</option>
             </select>
         </div>
-        <button type="button" class="btn btn-primary" onclick="enviar_usuario()">Registrar</button>
+        <div class="w-100 d-flex justify-content-center">
+          <button type="button" class="btn btn-primary mt-4" onclick="enviar_usuario()">Registrar</button>
+        </div>
       </form>
       <ul class="errors-list-users d-none mt-4" style="color: #e31e4c;"></ul>
 </div>
